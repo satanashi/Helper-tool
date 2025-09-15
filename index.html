@@ -10,25 +10,28 @@
     <div class="container">
         <h1>Helper Tool 😎</h1>
 
-        <!-- Блок 1: Добавить кавычки -->
-        <div class="tool-box">
-            <h2>Добавить кавычки</h2>
-            <textarea id="inputQuotes" placeholder="например: 1 2 3 4..."></textarea>
-            <button onclick="addQuotes()">Сгенерировать</button>
-            <textarea id="outputQuotes" placeholder="Результат появится здесь" readonly></textarea>
+<!-- Блок 1: Добавить кавычки -->
+<div class="tool-box">
+    <div class="header-with-toggle">
+        <h2>Добавить кавычки</h2>
+        <div class="quote-buttons">
+            <button id="single-quote-btn" class="quote-btn active">'</button>
+            <button id="double-quote-btn" class="quote-btn">"</button>
         </div>
-
-        <!-- Блок 2: Извлечь цифры -->
-        <div class="tool-box">
-            <h2>Извлечь номер</h2>
-            <textarea id="inputNumbers" placeholder="например: 4173455 конфеты..."></textarea>
-            <button onclick="extractNumbers()">Сгенерировать</button>
-            <textarea id="outputNumbers" placeholder="Результат появится здесь" readonly></textarea>
-            
-        </div>
-        <h1>Good Luck!</h1>
     </div>
+    <textarea id="inputQuotes" placeholder="Введите значения через пробел или перенос строки..."></textarea>
+    <button onclick="addQuotes()">Сгенерировать</button>
+    <textarea id="outputQuotes" placeholder="Результат появится здесь" readonly></textarea>
+</div>
 
+<!-- Блок 2: Извлечь номер -->
+<div class="tool-box">
+    <h2>Извлечь номер</h2>
+    <textarea id="inputNumbers" placeholder="например: 4173455 конфеты..."></textarea>
+    <button onclick="extractNumbers()">Сгенерировать</button>
+    <textarea id="outputNumbers" placeholder="Результат появится здесь" readonly></textarea>
+</div>
+        <h1>Good Luck!</h1>
     <script src="script.js"></script>
 </body>
 </html>
