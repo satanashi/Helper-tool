@@ -40,6 +40,43 @@ h1 {
     transform: translateY(-5px);
 }
 
+.header-with-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.quote-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.quote-btn {
+    width: 36px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: #e1e5e9;
+    color: #333;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    text-align: center;
+    line-height: 24px;
+}
+
+.quote-btn.active {
+    background: #6e8efb;
+    color: white;
+    font-weight: bold;
+}
+
+.quote-btn:hover:not(.active) {
+    background: #a777e3;
+}
+
 h2 {
     font-size: 1.5rem;
     color: #333;
@@ -112,4 +149,23 @@ button:hover {
     .tool-box {
         width: 48%;
     }
+}
+
+.copy-btn {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    border: none;
+    padding: 16px 16px;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: opacity 0.3s, transform 0.2s;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.copy-btn:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
 }
