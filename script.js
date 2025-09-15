@@ -125,10 +125,10 @@ function copyTextToClipboard(text) {
     document.body.removeChild(temp);
 }
 
-// Эффект "Скопировано!" на кнопке
+// Эффект "Скопировано" на кнопке
 function showCopiedFeedback(button) {
     const originalText = button.innerText;
-    button.innerText = 'Скопировано!';
+    button.innerText = 'Скопировано 👌';
     button.disabled = true; // опционально: блокируем на мгновение
     button.style.opacity = '0.7';
 
