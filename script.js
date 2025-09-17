@@ -22,6 +22,7 @@ function addQuotes() {
 
     if (!input) {
         output.value = '';
+        updateActionContainer(); // Обновляем состояние кнопки
         return;
     }
 
@@ -48,6 +49,9 @@ function addQuotes() {
 
     // Эффект на кнопке
     showCopiedFeedback(button);
+
+    // Обновляем состояние кнопки перестройки
+    updateActionContainer();
 }
 
 // Функция: Извлечь номера (только 7+ цифр) + копировать + эффект
@@ -106,3 +110,78 @@ function showCopiedFeedback(button) {
         button.style.opacity = '1';
     }, 500); // 0.5 секунды — достаточно для обратной связи
 }
+
+// ============ ДОБАВЛЕНИЕ ФУНКЦИОНАЛА ПЕРЕСТРОЙКИ ОТЧЁТА ============
+
+// Функция проверки: есть ли в outputQuotes хотя бы один UUID в двойных кавычках
+function hasValidReportId() {
+    const outputText = document.getElementById('outputQuotes').value;
+    // Регулярка для UUID в двойных кавычках: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    const uuidRegex = /"([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})"/i;
+    return uuidRegex.test(outputText);
+}
+
+// Функция обновления UI: показать кнопку или Good Luck
+function updateActionContainer() {
+    const container = document.getElementById('actionContainer');
+    if (hasValidReportId()) {
+        container.innerHTML = `
+            <button id="rebuildBtn" class="btn-rebuild">Перестроить отчёт 👀</button>
+        `;
+        // Назначаем обработчик после вставки в DOM
+        document.getElementById('rebuildBtn').addEventListener('click', handleRebuildClick);
+    } else {
+        container.innerHTML = `<h1>Good Luck!</h1>`;
+    }
+}
+
+// Обработчик клика по кнопке "Перестроить отчёт"
+async function handleRebuildClick() {
+    const outputText = document.getElementById('outputQuotes').value;
+    const uuidRegex = /"([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})"/i;
+    const match = outputText.match(uuidRegex);
+
+    if (!match) {
+        alert("Не удалось извлечь ID отчёта!");
+        return;
+    }
+
+    const reportId = match[1];
+    const button = document.getElementById('rebuildBtn');
+    button.disabled = true;
+    button.textContent = "Отправка...";
+
+    try {
+        // 🔁 Здесь будет твоя логика авторизации и отправки
+        await simulateRebuild(reportId);
+
+        // ✅ Успешно — показываем статус
+        document.getElementById('actionContainer').innerHTML = `
+            <div class="status-success">😌 Отчет отправлен на перестроение</div>
+        `;
+    } catch (error) {
+        button.disabled = false;
+        button.textContent = "Ошибка! Повторить";
+        console.error("Ошибка при перестройке:", error);
+    }
+}
+
+// Имитация отправки (заменить на реальный fetch)
+function simulateRebuild(reportId) {
+    return new Promise((resolve) => {
+        console.log(`[DEBUG] Отправка запроса на перестройку отчёта: ${reportId}`);
+        // Имитируем задержку сети
+        setTimeout(() => {
+            resolve({ ok: true });
+        }, 1500);
+    });
+}
+
+// Следим за изменениями в outputQuotes
+const outputQuotes = document.getElementById('outputQuotes');
+outputQuotes.addEventListener('input', updateActionContainer);
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+    updateActionContainer();
+});
