@@ -169,3 +169,48 @@ button:hover {
     opacity: 0.9;
     transform: scale(1.02);
 }
+
+/* Стили для кнопки перестройки и статуса */
+.action-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.action-container h1 {
+    color: white;
+    font-size: 2rem;
+    margin: 0;
+}
+
+.btn-rebuild {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin: 20px auto;
+    display: block;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+.btn-rebuild:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+}
+
+.status-success {
+    color: #aaffaa;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 20px auto;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
