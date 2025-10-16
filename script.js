@@ -138,27 +138,41 @@ function updateActionContainer() {
 // Обработчик клика по кнопке "Перестроить отчёт"
 async function handleRebuildClick() {
     const outputText = document.getElementById('outputQuotes').value;
-    const uuidRegex = /"([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})"/i;
-    const match = outputText.match(uuidRegex);
+    const uuidRegex = /"([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})"/gi;
+    const matches = [...outputText.matchAll(uuidRegex)];
 
-    if (!match) {
-        alert("Не удалось извлечь ID отчёта!");
+    if (matches.length === 0) {
+        alert("Не найдено ни одного валидного UUID в двойных кавычках!");
         return;
     }
 
-    const reportId = match[1];
+    const reportIds = matches.map(match => match[1]); // чистые UUID
+
     const button = document.getElementById('rebuildBtn');
     button.disabled = true;
     button.textContent = "Отправка...";
 
     try {
-        // 🔁 Здесь будет твоя логика авторизации и отправки
-        await simulateRebuild(reportId);
+        // 🔁 Симулируем отправку всех отчётов
+        const result = await simulateRebuildAll(reportIds);
 
-        // ✅ Успешно — показываем статус
+        // ✅ Формируем сообщение
+        let message;
+        if (result.successCount === 1 && reportIds.length === 1) {
+            message = "😌 Отчёт отправлен на перестроение";
+        } else {
+            message = "😌 Отчёты отправлены на перестроение";
+        }
+
+        if (result.failedIds.length > 0) {
+            message += `\n⚠️ Не удалось отправить ${result.failedIds.length} отчёт(ов):`;
+            message += "\n" + result.failedIds.map(id => `  • ${id}`).join("\n");
+        }
+
         document.getElementById('actionContainer').innerHTML = `
-            <div class="status-success">😌 Отчет отправлен на перестроение</div>
+            <div class="status-success">${message.replace(/\n/g, '<br>')}</div>
         `;
+
     } catch (error) {
         button.disabled = false;
         button.textContent = "Ошибка! Повторить";
@@ -166,14 +180,23 @@ async function handleRebuildClick() {
     }
 }
 
-// Имитация отправки (заменить на реальный fetch)
-function simulateRebuild(reportId) {
+// Симуляция отправки нескольких отчётов
+function simulateRebuildAll(reportIds) {
     return new Promise((resolve) => {
-        console.log(`[DEBUG] Отправка запроса на перестройку отчёта: ${reportId}`);
-        // Имитируем задержку сети
+        console.log(`[DEBUG] Отправка ${reportIds.length} отчётов:`, reportIds);
+
+        // Имитируем задержку
         setTimeout(() => {
-            resolve({ ok: true });
-        }, 1500);
+            // 🔥 Искусственно "ломаем" UUID, начинающиеся с "f802"
+            const failedIds = reportIds.filter(id => id.startsWith('f802'));
+            const successCount = reportIds.length - failedIds.length;
+
+            resolve({
+                successCount,
+                total: reportIds.length,
+                failedIds
+            });
+        }, 1200);
     });
 }
 
