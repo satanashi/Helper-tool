@@ -158,4 +158,5 @@ if (typeof module !== 'undefined' && module.exports) {
         showNotification,
         autoDarkTheme
     };
+
 }
