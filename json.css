@@ -1,0 +1,273 @@
+/* json.css — адаптирован под скриншот */
+
+.json-main-box {
+    position: relative;
+    margin-bottom: 30px;
+    min-height: 400px;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--box-bg-light);
+    border: 1px solid var(--border-color-light);
+    box-shadow: var(--shadow-light);
+    animation: slideInUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+body.dark-theme .json-main-box {
+    background: var(--box-bg-dark);
+    border-color: var(--border-color-dark);
+    box-shadow: var(--shadow-dark);
+}
+
+.json-header h2 {
+    font-size: 1.8rem !important;
+    margin: 10px;
+    color: var(--text-color-light);
+    font-weight: 600;
+}
+body.dark-theme .json-header h2 {
+    color: var(--text-color-dark);
+}
+
+#jsonInput {
+    min-height: 200px;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    border: 2px solid var(--border-color-light);
+    transition: border-color 0.3s ease;
+    background: var(--box-bg-light);
+    color: var(--text-color-light);
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Скрываем скроллбар для Webkit браузеров */
+#jsonInput::-webkit-scrollbar {
+    display: none;
+}
+
+body.dark-theme #jsonInput {
+    border-color: var(--border-color-dark);
+    background: var(--box-bg-dark);
+    color: var(--text-color-dark);
+}
+#jsonInput:focus {
+    outline: none;
+    border-color: var(--indicator-bg-light);
+}
+body.dark-theme #jsonInput:focus {
+    border-color: var(--indicator-bg-dark);
+}
+#jsonInput::placeholder {
+    color: #888;
+    font-style: italic;
+}
+body.dark-theme #jsonInput::placeholder {
+    color: #aaa;
+}
+
+#jsonSubmitBtn {
+    background: var(--button-gradient-light);
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-shadow: var(--shadow-light);
+    margin-bottom: 16px;
+}
+body.dark-theme #jsonSubmitBtn {
+    background: var(--button-gradient-dark);
+    box-shadow: var(--shadow-dark);
+}
+#jsonSubmitBtn:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+#jsonSubmitBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.json-status-overlay {
+    padding: 16px 20px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s, transform 0.4s;
+    max-width: 100%;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    line-height: 1.4;
+    z-index: 10;
+    color: inherit;
+    overflow: hidden;
+    cursor: default;
+    position: relative;
+}
+body.dark-theme .json-status-overlay {
+    color: var(--text-color-dark);
+}
+.json-status-overlay.success { color: #22c55e !important; }
+.json-status-overlay.error { color: #ef4444 !important; }
+.json-status-overlay.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* === МОДАЛЬНОЕ ОКНО === */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+body.dark-theme .modal-overlay {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    position: relative;
+    background: var(--box-bg-light);
+    border: 1px solid var(--border-color-light);
+    border-radius: 12px;
+    padding: 20px;
+    width: 700px;
+    height: auto;
+    overflow: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: modalAppear 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    scrollbar-width: none;
+}
+
+body.dark-theme .modal-content {
+    background: var(--box-bg-dark);
+    border-color: var(--border-color-dark);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* === ЗАГОЛОВОК И КНОПКА КОПИРОВАНИЯ === */
+.modal-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 15px 0;
+}
+
+.modal-header-container h3 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: var(--text-color-light);
+}
+
+body.dark-theme .modal-header-container h3 {
+    color: var(--text-color-dark);
+}
+
+/* === КНОПКА КОПИРОВАНИЯ (рядом с заголовком) === */
+.modal-copy-btn {
+    background: none;
+    border: none;
+    font-size: 1.7rem;
+    cursor: pointer;
+    color: var(--text-color-light);
+    padding: 0;
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+body.dark-theme .modal-copy-btn {
+    color: var(--text-color-dark);
+}
+
+.modal-copy-btn:hover {
+    background: rgba(0,0,0,0.1);
+}
+
+body.dark-theme .modal-copy-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+/* === ТЕКСТ ОТВЕТА === */
+.modal-content-text {
+    margin: 0;
+    padding: 10px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: var(--text-color-light);
+    overflow-y: auto;
+    max-height: 75vh;
+    scrollbar-width: none;
+}
+
+body.dark-theme .modal-content-text {
+    background: rgba(255,255,255,0.05);
+    color: var(--text-color-dark);
+}
+
+.modal-content-text::-webkit-scrollbar {
+    display: none;
+}
+
+/* Подсветка синтаксиса */
+.json-key { color: #881391; }
+body.dark-theme .json-key { color: #c586c0; }
+.json-string { color: #0451a5; }
+body.dark-theme .json-string { color: #ce9178; }
+.json-number { color: #098658; }
+body.dark-theme .json-number { color: #b5cea8; }
+.json-boolean { color: #0000ff; }
+body.dark-theme .json-boolean { color: #569cd6; }
+.json-null { color: #808080; }
+body.dark-theme .json-null { color: #808080; }
+.json-punctuation { color: #333; }
+body.dark-theme .json-punctuation { color: #d4d4d4; }
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,217 @@
+/* ===== БАЗОВЫЕ СТИЛИ И ПЕРЕМЕННЫЕ ===== */
+:root {
+    /* Цветовые схемы */
+    --bg-gradient-light: linear-gradient(135deg, #6e8efb, #a777e3);
+    --bg-gradient-dark: linear-gradient(135deg, #1e1e2e, #3a3a4f);
+    --text-color-light: #333;
+    --text-color-dark: #c2c2c2;
+    --box-bg-light: white;
+    --box-bg-dark: #2d2d3a;
+    --border-color-light: #e1e5e9;
+    --border-color-dark: #444;
+    --button-gradient-light: linear-gradient(135deg, #6e8efb, #a777e3);
+    --button-gradient-dark: linear-gradient(135deg, #3a3a5a, #5a5a7a);
+    --shadow-light: 0 8px 20px rgba(0,0,0,0.15);
+    --shadow-dark: 0 8px 20px rgba(0,0,0,0.4);
+    --hover-bg-light: #f8f9fa;
+    --hover-bg-dark: #3a3a4f;
+    --quote-switch-bg-light: white;
+    --quote-switch-bg-dark: #333;
+    --quote-switch-border-light: #ddd;
+    --quote-switch-border-dark: #555;
+    --indicator-bg-light: #6e8efb;
+    --indicator-bg-dark: #686888;
+    --title-shadow-light: 0 2px 4px rgba(0,0,0,0.2);
+    --title-shadow-dark: 0 2px 4px rgba(0,0,0,0.5);
+    --title-color-light: white;
+    --title-color-dark: #c2c2c2;
+}
+
+/* ===== БАЗОВЫЕ СТИЛИ ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-gradient-light);
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    color: var(--text-color-light);
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+body.dark-theme {
+    background: var(--bg-gradient-dark);
+    color: var(--text-color-dark);
+}
+
+.container {
+    max-width: 1000px;
+    width: 100%;
+}
+
+/* ===== ЗАГОЛОВОК ===== */
+#tool-title {
+    background: transparent;
+    font-size: 2.5rem;
+    text-shadow: var(--title-shadow-light);
+    color: var(--title-color-light);
+    transform: translateY(20px);
+    animation: fadeInUpTitle 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+body.dark-theme #tool-title {
+    text-shadow: var(--title-shadow-dark);
+    color: var(--title-color-dark);
+}
+
+/* ===== АНИМАЦИИ ===== */
+@keyframes fadeInUpTitle {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== АНИМАЦИЯ ПОЯВЛЕНИЯ БЛОКОВ ===== */
+.tool-box {
+    opacity: 0;
+    animation: slideInUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reports-main-box {
+    opacity: 0;
+    animation: slideInUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* ← финальное состояние без transform */
+    }
+}
+
+/* ===== КНОПКИ ПЕРЕКЛЮЧЕНИЯ ТЕМЫ И МЕНЮ ===== */
+.theme-toggle-btn,
+.menu-toggle-btn {
+    position: fixed;
+    top: 20px;
+    background: transparent !important;
+    width: 55px;
+    height: 55px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    color: #333;
+    z-index: 1001;
+    font-size: 1.5rem;
+}
+
+.theme-toggle-btn {
+    right: 20px;
+}
+
+.menu-toggle-btn {
+    left: 20px;
+}
+
+body.dark-theme .theme-toggle-btn,
+body.dark-theme .menu-toggle-btn {
+    color: #c2c2c2;
+}
+
+.theme-toggle-btn:hover,
+.menu-toggle-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* ===== ПЛАВНЫЕ ПЕРЕХОДЫ ТЕМЫ ===== */
+body.theme-transitioning * {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease, 
+                box-shadow 0.3s ease !important;
+}
+
+.menu-dropdown {
+    top: 80px !important;
+    left: 20px !important;
+    z-index: 1000 !important;
+}
+
+/* Отключаем переходы для некоторых элементов */
+body.theme-transitioning .env-menu,
+body.theme-transitioning .menu-dropdown,
+body.theme-transitioning .reports-dropdown {
+    transition: none;
+}
+
+.status-message {
+    font-size: 1.1rem; 
+    font-weight: 600;
+    margin-top: 10px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: none;
+    color: #4ade80;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    border: none;
+    box-shadow: none;
+}
+
+/* Анимации переключения инструментов */
+.container.switching-out {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.container.switching-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+/* Появление кнопки отправки */
+.btn-appear {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition: all 0.3s ease;
+}
+
+.btn-disappear {
+    opacity: 0 !important;
+    transform: translateY(10px) !important;
+    transition: all 0.3s ease;
+}
