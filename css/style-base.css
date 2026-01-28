@@ -214,4 +214,5 @@ body.theme-transitioning .reports-dropdown {
     opacity: 0 !important;
     transform: translateY(10px) !important;
     transition: all 0.3s ease;
+
 }
