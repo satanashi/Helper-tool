@@ -4,40 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Helper Tool</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style-base.css">
+    <link rel="stylesheet" href="css/helper.css">
+    <link rel="stylesheet" href="css/json.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Helper Tool 😎</h1>
-
-        <!-- Блок 1: Добавить кавычки -->
-        <div class="tool-box">
-            <div class="header-with-toggle">
-                <h2>Добавить кавычки</h2>
-                <div class="quote-buttons">
-                    <button id="single-quote-btn" class="quote-btn active">'</button>
-                    <button id="double-quote-btn" class="quote-btn">"</button>
-                </div>
-            </div>
-            <textarea id="inputQuotes" placeholder="Введите значения..."></textarea>
-            <button onclick="addQuotes()">Клик 👆</button>
-            <textarea id="outputQuotes" placeholder="Результат появится здесь" readonly></textarea>
-        </div>
-
-        <!-- Блок 2: Извлечь номер -->
-        <div class="tool-box">
-            <h2>Извлечь номер</h2>
-            <textarea id="inputNumbers" placeholder="например: 4173455 конфеты..."></textarea>
-            <button onclick="extractNumbers()">Клик 👆</button>
-            <textarea id="outputNumbers" placeholder="Результат появится здесь" readonly></textarea>
-        </div>
-
-        <!-- Контейнер для кнопки перестройки / Good Luck -->
-        <div id="actionContainer" class="action-container">
-            <h1>Good Luck!</h1>
-        </div>
+    <!-- Выпадающее меню инструментов -->
+    <div id="menuDropdown" class="menu-dropdown">
+        <div class="menu-item" data-tool="helper">Helper 😎</div>
+        <div class="menu-item" data-tool="json">Json 🗃️</div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Кнопка вызова меню -->
+    <button id="menuToggle" class="menu-toggle-btn" title="Открыть меню">🛠️</button>
+
+    <!-- Основной контент -->
+    <div class="container"></div>
+
+    <!-- Кнопка переключения темы -->
+    <button id="themeToggle" class="theme-toggle-btn" title="Переключить тему">🌙</button>
+
+    <!-- Скрипты -->
+    <script src="js/base.js"></script>
+    <script src="js/json.js"></script>
+    <script src="js/helper.js"></script>
 </body>
 </html>
