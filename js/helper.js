@@ -169,11 +169,9 @@ function createHelperToolContent() {
     header.appendChild(title);
     fragment.appendChild(header);
 
-    // --- Extract Numbers ---
     const numbersBox = createToolBox('Извлечь номер', 'inputNumbers', 'outputNumbers', extractNumbers, true);
     fragment.appendChild(numbersBox);
 
-    // --- Add Quotes ---
     const quotesBox = createToolBox('Добавить кавычки', 'inputQuotes', 'outputQuotes', addQuotes, false);
     fragment.appendChild(quotesBox);
 
@@ -247,7 +245,6 @@ function createToolBox(titleText, inputId, outputId, handler, isExtract = false)
 function switchTool(tool) {
     const container = document.querySelector('.container');
     
-    // Анимация исчезновения
     container.style.opacity = '0';
     container.style.transform = 'translateY(20px)';
     container.style.transition = 'all 0.3s ease';
@@ -257,13 +254,12 @@ function switchTool(tool) {
         
         if (tool === 'helper') {
             container.appendChild(createHelperToolContent());
-            // Инициализация переключателей после добавления контента
+ 
             setTimeout(() => {
                 initQuoteSwitch();
                 initExtractModeSwitch();
             }, 10);
         } else if (tool === 'json') {
-            // Используем функцию из json.js
             if (typeof switchToolJson === 'function') {
                 switchToolJson();
             } else {
@@ -271,7 +267,6 @@ function switchTool(tool) {
             }
         }
         
-        // Анимация появления
         setTimeout(() => {
             container.style.opacity = '1';
             container.style.transform = 'translateY(0)';
@@ -283,6 +278,5 @@ function switchTool(tool) {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('✅ Helper Tool: DOM загружен');
     initSideMenu();
-    // Загружаем Helper Tool по умолчанию
     switchTool('helper');
 });
