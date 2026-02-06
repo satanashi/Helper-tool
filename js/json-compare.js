@@ -15,11 +15,9 @@ showModal() {
     const { overlay, modal } = DomUtils.createModal('', 'compare-modal');
     overlay.className = 'modal-overlay compare-overlay';
     
-    // Заголовок
     const header = DomUtils.createElement('div', 'modal-header-container');
     const title = DomUtils.createElement('h3', '', 'Сравнение Json');
     
-    // Статус (добавляем сразу после заголовка)
     const statusDiv = DomUtils.createElement('div', 'compare-status');
     statusDiv.id = 'compareStatus';
     
@@ -30,16 +28,13 @@ showModal() {
         this.clearFields();
     };
     
-    // Добавляем элементы в правильном порядке
     header.appendChild(title);
-    header.appendChild(statusDiv);  // <-- статус между заголовком и кнопкой
+    header.appendChild(statusDiv);
     header.appendChild(clearBtn);
     modal.appendChild(header);
     
-    // Контейнер для двух окон
     const compareContainer = DomUtils.createElement('div', 'compare-container');
     
-    // Левое окно
     const leftSection = this.createCompareSection('compareLeft', 'Первый Json...');
     const rightSection = this.createCompareSection('compareRight', 'Второй Json...');
     
@@ -199,7 +194,6 @@ showModal() {
         
         if (!leftDisplay || !rightDisplay || !statusDiv) return;
         
-        // Очищаем предыдущую подсветку
         this.clearDiffHighlighting(leftDisplay, rightDisplay);
         
         if (this.state.left.obj && this.state.right.obj) {
@@ -254,8 +248,6 @@ showModal() {
     }
     
     highlightDiffInLine(leftLine, rightLine) {
-        // Базовая реализация подсветки различий
-        // Можно улучшить для более точного сравнения
         return {
             left: leftLine ? `<span class="diff-line">${leftLine}</span>` : '',
             right: rightLine ? `<span class="diff-line">${rightLine}</span>` : ''
@@ -263,8 +255,7 @@ showModal() {
     }
     
     compareStructure(obj1, obj2) {
-        // Упрощенная реализация сравнения структур
-        // Можно расширить для более детального сравнения
+        
         const differences = [];
         
         const compareObjects = (a, b, path = '') => {
@@ -332,7 +323,6 @@ showModal() {
     }
 }
 
-// Создаем и экспортируем экземпляр
 const jsonCompareTool = new JsonCompareTool();
 
 if (typeof window !== 'undefined') {
