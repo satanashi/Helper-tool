@@ -17,17 +17,14 @@ class JsonTool {
         
         container.innerHTML = '';
         
-        // Заголовок
         const header = DomUtils.createElement('div', 'header-container');
         const title = DomUtils.createElement('h1', '', 'Json Tool 🗃️');
         title.id = 'tool-title';
         header.appendChild(title);
         container.appendChild(header);
         
-        // Основной блок
         this.mainBox = DomUtils.createElement('div', 'tool-box json-main-box');
-        
-        // Хедер
+
         const jsonHeader = DomUtils.createElement('div', 'json-header');
         const h2 = DomUtils.createElement('h2', '', 'Форматирование Json');
         
@@ -43,13 +40,11 @@ class JsonTool {
         jsonHeader.appendChild(compareBtn);
         this.mainBox.appendChild(jsonHeader);
         
-        // Текстовое поле
         this.input = DomUtils.createElement('textarea', '', '');
         this.input.id = 'jsonInput';
         this.input.placeholder = 'Вставьте текст с Json...';
         this.mainBox.appendChild(this.input);
-        
-        // Кнопка обработки
+
         this.submitBtn = DomUtils.createElement('button', '', 'Преобразовать');
         this.submitBtn.id = 'jsonSubmitBtn';
         this.submitBtn.addEventListener('click', () => this.process());
@@ -80,22 +75,18 @@ class JsonTool {
                 return;
             }
             
-            // Определяем формат (функциональность сохраняется, но не отображается)
             JsonUtils.detectFormat(rawText);
             
-            // Очищаем и извлекаем JSON
             let jsonString = JsonUtils.cleanAndExtract(rawText);
             if (!jsonString) {
                 DomUtils.showStatusMessage(this.mainBox, 'Не удалось извлечь Json из текста', 'error');
                 return;
             }
             
-            // Исправляем ошибки и парсим
             jsonString = JsonUtils.fixErrors(jsonString);
             const jsonObject = JSON.parse(jsonString);
             const formattedJson = JSON.stringify(jsonObject, null, 2);
             
-            // Показываем результат
             this.showResult(formattedJson);
             DomUtils.showStatusMessage(this.mainBox, '✅ Json отформатирован', 'success');
             
@@ -116,7 +107,6 @@ class JsonTool {
     showResult(formattedJson) {
         const { overlay, modal } = DomUtils.createModal();
         
-        // Заголовок
         const header = DomUtils.createElement('div', 'modal-header-container');
         const title = DomUtils.createElement('h3', '', 'Отформатированный Json');
         
@@ -135,7 +125,6 @@ class JsonTool {
         header.appendChild(copyBtn);
         modal.appendChild(header);
         
-        // Контент
         const content = DomUtils.createElement('pre', 'modal-content-text');
         content.innerHTML = JsonUtils.highlight(formattedJson);
         modal.appendChild(content);
@@ -155,7 +144,6 @@ class JsonTool {
     }
 }
 
-// Создаем и экспортируем экземпляр
 const jsonTool = new JsonTool();
 
 if (typeof window !== 'undefined') {
@@ -165,3 +153,4 @@ if (typeof window !== 'undefined') {
 }
 
 console.log('✅ Json Tool загружен');
+
