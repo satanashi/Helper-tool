@@ -50,7 +50,7 @@ function extractNumbers(event) {
     }
 
     const matches = extractMode === 'num'
-        ? input.match(/\d+/g) || []
+        ? input.match(/\d{5,}/g) || []
         : input.match(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/g) || [];
 
     const uniqueMatches = [...new Set(matches)].filter(Boolean);
