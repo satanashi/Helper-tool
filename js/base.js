@@ -188,6 +188,35 @@ const JsonUtils = {
     }
 };
 
+function copyToClipboard(text) {
+    return JsonUtils.copyToClipboard(text);
+}
+
+function showCopyFeedback(button) {
+    if (!button) return false;
+    
+    const originalHTML = button.innerHTML;
+    button.innerHTML = 'Скопировано 👌';
+    button.disabled = true;
+    button.style.opacity = '0.7';
+    
+    setTimeout(() => {
+        button.innerHTML = originalHTML;
+        button.disabled = false;
+        button.style.opacity = '1';
+    }, 1000);
+    
+    return true;
+}
+
+function copyWithFeedback(text, button) {
+    if (copyToClipboard(text)) {
+        showCopyFeedback(button);
+        return true;
+    }
+    return false;
+}
+
 // ===== 3. УТИЛИТЫ ДЛЯ DOM =====
 const DomUtils = {
     createElement(tag, className, text = '') {
@@ -275,3 +304,4 @@ if (document.readyState === 'loading') {
 } else {
     initBase();
 }
+
