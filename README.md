@@ -14,8 +14,8 @@
 
 - HTML5
 - CSS3 (адаптивный дизайн)
-- Vanilla JavaScript (без фреймворков)
+- Vanilla JavaScript
 
----
+--- public link --- https://satanashi.github.io/Helper-tool/
 
 Сделано с ❤️ для команды, чтобы упростить рутину!
